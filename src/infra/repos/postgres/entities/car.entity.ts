@@ -53,8 +53,8 @@ export class PgCar {
   @Column({ name: 'principal_image' })
   principalImage!: string;
 
-  @Column({ type: 'simple-array', nullable: true })
-  images?: string[];
+  @Column({ name: 'images', nullable: true })
+  images?: string;
 
   @Column({ name: 'motor_power' })
   motorPower!: string;

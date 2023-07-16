@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2021",
-    "rootDir": "./src",
+    "rootDir": "src",
     "outDir": "./dist",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -19,7 +19,7 @@
     "strictPropertyInitialization": true,
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
   },
   "include": ["src"],
 }

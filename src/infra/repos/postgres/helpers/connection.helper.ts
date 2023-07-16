@@ -1,10 +1,5 @@
 import { DbTransaction } from '@/application/contracts';
 import {
-  ConnectionNotFoundError,
-  TransactionNotFoundError,
-} from '@/infra/repos/postgres/helpers';
-
-import {
   Connection,
   ObjectLiteral,
   ObjectType,
@@ -15,6 +10,10 @@ import {
   getConnectionManager,
   getRepository,
 } from 'typeorm';
+import {
+  ConnectionNotFoundError,
+  TransactionNotFoundError,
+} from './errors.helper';
 
 export class PgConnection implements DbTransaction {
   private static instance?: PgConnection;

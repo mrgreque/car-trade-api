@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  db-car-trade:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - car-trade-network
+
+  adminer-car-trade:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-car-trade
+    networks:
+      - car-trade-network
+
+networks:
+  car-trade-network:
+    driver: bridge

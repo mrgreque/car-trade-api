@@ -25,13 +25,11 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.0.4"
-  },
-  "engines": {
-    "node": "16.x"
+    "typescript": "^5.1.6"
   },
   "dependencies": {
     "module-alias": "^2.2.2",
-    "rimraf": "^5.0.1"
+    "rimraf": "^5.0.1",
+    "typeorm": "^0.3.17"
   }
 }

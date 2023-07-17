@@ -25,7 +25,7 @@ export class SaveCarController extends Controller {
   }
 
   override buildValidators(car: HttpRequest): Validator[] {
-    return ValidationBuilder.of({ value: car.brand, fieldName: 'brand' })
+    return ValidationBuilder.of({ value: car, fieldName: 'car' })
       .required()
       .build();
   }

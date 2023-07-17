@@ -1,14 +1,11 @@
+import { PgCar } from './../entities/car.entity';
 import { DbTransaction } from '@/application/contracts';
 import {
-  Connection,
   ObjectLiteral,
   ObjectType,
   QueryRunner,
   Repository,
-  createConnection,
-  getConnection,
-  getConnectionManager,
-  getRepository,
+  DataSource,
 } from 'typeorm';
 import {
   ConnectionNotFoundError,
@@ -18,7 +15,7 @@ import {
 export class PgConnection implements DbTransaction {
   private static instance?: PgConnection;
   private query?: QueryRunner;
-  private connection?: Connection;
+  private dataSource?: DataSource;
 
   static getInstance(): PgConnection {
     if (PgConnection.instance === undefined) {
@@ -28,21 +25,28 @@ export class PgConnection implements DbTransaction {
   }
 
   async connect(): Promise<void> {
-    this.connection = getConnectionManager().has('default')
-      ? getConnection()
-      : await createConnection();
+    this.dataSource = await new DataSource({
+      type: process.env.DB_CONNECTION as 'mysql' | 'postgres' | 'mongodb',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT ?? '5432'),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: [PgCar],
+      synchronize: true,
+      logging: false,
+    }).initialize();
   }
 
   async disconnect(): Promise<void> {
-    if (this.connection === undefined) throw new ConnectionNotFoundError();
-    await getConnection().close();
+    if (this.dataSource === undefined) throw new ConnectionNotFoundError();
     this.query = undefined;
-    this.connection = undefined;
+    this.dataSource.destroy();
   }
 
   async openTransaction(): Promise<void> {
-    if (this.connection === undefined) throw new ConnectionNotFoundError();
-    this.query = this.connection.createQueryRunner();
+    if (this.dataSource === undefined) throw new ConnectionNotFoundError();
+    this.query = this.dataSource.createQueryRunner();
     await this.query.startTransaction();
   }
 
@@ -64,9 +68,9 @@ export class PgConnection implements DbTransaction {
   getRepository<Entity extends ObjectLiteral>(
     entity: ObjectType<Entity>,
   ): Repository<Entity> {
-    if (this.connection === undefined) throw new ConnectionNotFoundError();
+    if (this.dataSource === undefined) throw new ConnectionNotFoundError();
     if (this.query !== undefined)
       return this.query.manager.getRepository(entity);
-    return getRepository(entity);
+    return this.dataSource.getRepository(entity);
   }
 }

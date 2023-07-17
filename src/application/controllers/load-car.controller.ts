@@ -1,6 +1,6 @@
 import { LoadCarUseCase } from '@/domain/usecases/load-car.usecase';
 import { Controller } from './controller';
-import { HttpResponse, ok, unauthorized } from '../helpers';
+import { badRequest, HttpResponse, ok } from '../helpers';
 import { Car } from '@/domain/entities';
 import { ValidationBuilder, Validator } from '../validation';
 
@@ -21,11 +21,12 @@ export class LoadCarController extends Controller {
       return ok(car);
     } catch (error) {
       console.log(error);
-      return unauthorized();
+      return badRequest(error);
     }
   }
 
   override buildValidators({ id }: HttpRequest): Validator[] {
+    console.log('validating id', id);
     return ValidationBuilder.of({ value: id, fieldName: 'id' })
       .required()
       .build();

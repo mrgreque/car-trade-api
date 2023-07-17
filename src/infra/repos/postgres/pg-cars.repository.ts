@@ -39,9 +39,7 @@ export class PgCarsRepository extends PgRepository implements LoadCar, SaveCar {
   }
 
   async save(params: SaveParams): Promise<void> {
-    console.log(params);
     const pgCarRepo = this.getRepository(PgCar);
-    console.log(JSON.stringify(pgCarRepo));
     await pgCarRepo.save(params);
   }
 }

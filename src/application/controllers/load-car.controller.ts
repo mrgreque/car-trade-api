@@ -14,19 +14,15 @@ export class LoadCarController extends Controller {
   }
 
   async perform({ id }: HttpRequest): Promise<HttpResponse<Model>> {
-    console.log(id);
     try {
       const car = await this.loadCar({ id });
-      console.log(car);
       return ok(car);
     } catch (error) {
-      console.log(error);
       return badRequest(error);
     }
   }
 
   override buildValidators({ id }: HttpRequest): Validator[] {
-    console.log('validating id', id);
     return ValidationBuilder.of({ value: id, fieldName: 'id' })
       .required()
       .build();

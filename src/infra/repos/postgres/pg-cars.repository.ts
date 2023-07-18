@@ -64,8 +64,6 @@ export class PgCarsRepository
       take: params.itemsPerPage,
     });
 
-    console.log(cars);
-
     return {
       total,
       cars,

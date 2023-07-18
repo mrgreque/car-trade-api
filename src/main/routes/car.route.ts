@@ -12,7 +12,7 @@ export default (router: Router): void => {
   const saveCarController = makeSaveCarController();
   const loadPaginatedCarsController = makeLoadPaginatedCarsController();
 
-  router.get('/cars', adptExpressRoute(loadCarController));
-  router.post('/cars', makeAuthMiddleware, adptExpressRoute(saveCarController));
-  router.get('/cars/paginated', adptExpressRoute(loadPaginatedCarsController));
+  router.get('/car/:id', adptExpressRoute(loadCarController));
+  router.post('/car', makeAuthMiddleware, adptExpressRoute(saveCarController));
+  router.post('/cars/paginated', adptExpressRoute(loadPaginatedCarsController));
 };

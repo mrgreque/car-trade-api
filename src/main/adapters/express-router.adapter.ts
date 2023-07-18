@@ -7,6 +7,7 @@ export const adptExpressRoute: Adapter = (controller) => {
   return async (req: Request, res: Response) => {
     const { statusCode, data } = await controller.handle({
       ...req.body,
+      ...req.params,
     });
     const json = [200, 204].includes(statusCode)
       ? data

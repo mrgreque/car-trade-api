@@ -11,6 +11,7 @@ import {
   ConnectionNotFoundError,
   TransactionNotFoundError,
 } from './errors.helper';
+import { PgUser } from '../entities';
 
 export class PgConnection implements DbTransaction {
   private static instance?: PgConnection;
@@ -32,7 +33,7 @@ export class PgConnection implements DbTransaction {
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [PgCar],
+      entities: [PgCar, PgUser],
       synchronize: true,
       logging: false,
     }).initialize();

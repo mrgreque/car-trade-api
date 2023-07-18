@@ -1,10 +1,30 @@
 import { Controller } from './controller';
-import { HttpResponse, ok, unauthorized } from '../helpers';
+import { HttpResponse, badRequest, ok } from '../helpers';
 import { ValidationBuilder, Validator } from '../validation';
 import { SaveCarUseCase } from '@/domain/usecases/save-car.usecase';
-import { CarData } from '@/domain/contracts/repos';
 
-type HttpRequest = CarData.InputCar;
+type HttpRequest = {
+  name: string;
+  brand: string;
+  model: string;
+  city: string;
+  state: string;
+  year: number;
+  modelYear: number;
+  km: number;
+  transmission: string;
+  fuel: string;
+  color: string;
+  paidIpva: boolean;
+  paidLicensing: boolean;
+  price: number;
+  oldPrice?: number;
+  principalImage: string;
+  images?: string;
+  motorPower: string;
+  ports: number;
+  description: string;
+};
 
 type Model = Error | boolean;
 
@@ -14,13 +34,11 @@ export class SaveCarController extends Controller {
   }
 
   async perform(car: HttpRequest): Promise<HttpResponse<Model>> {
-    console.log('car', car);
     try {
       await this.saveCar(car);
       return ok(true);
     } catch (error) {
-      console.log(error);
-      return unauthorized();
+      return badRequest(error);
     }
   }
 

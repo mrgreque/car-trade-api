@@ -1,7 +1,7 @@
 import { setupLoadPaginatedCarsUseCase } from '@/domain/usecases/load-paginated-cars.usecase';
-import { PgCarsRepository } from '@/infra/repos/postgres';
+import { makePgCarsRepository } from '../../infra/repos/postgres/pg-car.factory';
 
 export const makeLoadPaginatedCarsUseCase = () => {
-  const loadPaginatedCarsRepository = new PgCarsRepository();
+  const loadPaginatedCarsRepository = makePgCarsRepository();
   return setupLoadPaginatedCarsUseCase(loadPaginatedCarsRepository);
 };

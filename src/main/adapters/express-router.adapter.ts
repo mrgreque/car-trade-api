@@ -5,7 +5,6 @@ type Adapter = (controller: Controller) => RequestHandler;
 
 export const adptExpressRoute: Adapter = (controller) => {
   return async (req: Request, res: Response) => {
-    console.log('req.body', req.body);
     const { statusCode, data } = await controller.handle({
       ...req.body,
     });

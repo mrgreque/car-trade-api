@@ -16,10 +16,11 @@ type CarData = {
   price: number;
   oldPrice?: number;
   principalImage: string;
-  images?: string[];
+  images?: string;
   motorPower: string;
   ports: number;
   description: string;
+  active: boolean;
 };
 
 export class Car {

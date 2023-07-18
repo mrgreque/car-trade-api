@@ -64,4 +64,7 @@ export class PgCar {
 
   @Column()
   description!: string;
+
+  @Column()
+  active!: boolean;
 }

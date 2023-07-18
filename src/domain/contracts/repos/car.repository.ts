@@ -22,6 +22,7 @@ export namespace CarData {
     motorPower: string;
     ports: number;
     description: string;
+    active: boolean;
   };
 
   export type InputCar = {
@@ -123,4 +124,22 @@ export interface SaveCar {
 
 export namespace SaveCar {
   export type Params = CarData.InputCar;
+}
+
+export interface LoadPaginatedCars {
+  loadPaginated: (
+    params: LoadPaginatedCars.Params,
+  ) => Promise<LoadPaginatedCars.Result>;
+}
+
+export namespace LoadPaginatedCars {
+  export type Params = {
+    page: number;
+    itemsPerPage: number;
+  };
+
+  export type Result = {
+    total: number;
+    cars: CarData.Car[];
+  };
 }

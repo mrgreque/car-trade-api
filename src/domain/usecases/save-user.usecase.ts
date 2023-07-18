@@ -1,8 +1,9 @@
 import { IPasswordHash } from '../contracts/gateways/crypto';
-import { SaveUser } from '../contracts/repos';
+import { LoadUserByEmail, SaveUser } from '../contracts/repos';
+import { AlreadyExistsError } from '../entities/errors/already-exists.error';
 
 type Setup = (
-  userRepo: SaveUser,
+  userRepo: SaveUser & LoadUserByEmail,
   hashPasswordHandler: IPasswordHash,
 ) => SaveUserUseCase;
 type Input = {
@@ -19,6 +20,8 @@ export const setupSaveUserUseCase: Setup = (
   hashPasswordHandler,
 ): SaveUserUseCase => {
   return async (params) => {
+    const user = await userRepo.load(params.email);
+    if (user) throw new AlreadyExistsError('email');
     params.password = await hashPasswordHandler.hash(params.password);
     await userRepo.save(params);
   };

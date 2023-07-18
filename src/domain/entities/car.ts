@@ -25,10 +25,6 @@ type CarData = {
 
 export class Car {
   constructor(carData: CarData) {
-    // if (!carData.id) {
-    //   carData.id = Math.random().toString(36).substr(2, 9);
-    // }
-
     Object.assign(this, carData);
   }
 }

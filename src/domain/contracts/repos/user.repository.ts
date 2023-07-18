@@ -1,5 +1,5 @@
 export interface UserDTO {
-  id: string;
+  id: number;
   name: string;
   email: string;
   password: string;
@@ -18,4 +18,12 @@ export namespace SaveUser {
   };
 
   export type Result = void;
+}
+
+export interface LoadUserByEmail {
+  load: (email: string) => Promise<LoadUserByEmail.Result>;
+}
+
+export namespace LoadUserByEmail {
+  export type Result = UserDTO | null;
 }

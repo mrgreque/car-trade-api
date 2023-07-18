@@ -36,7 +36,10 @@ export const setupAuthenticateUserUseCase: Setup = (
     );
     if (!isValidPassword) throw new AuthenticationError();
 
-    const accessToken = await tokenHandler.generate(user.id.toString(), 30000);
+    const accessToken = await tokenHandler.generate(
+      user.id.toString(),
+      60 * 20 * 1000, // 20 minutes
+    );
     return {
       accessToken,
       id: user.id,

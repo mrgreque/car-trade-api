@@ -5,6 +5,7 @@ import {
   makeSaveCarController,
 } from '../factories/application/controllers';
 import { adptExpressRoute } from '../adapters';
+import { makeAuthMiddleware } from '../factories/application/middlewares/auth.factory';
 
 export default (router: Router): void => {
   const loadCarController = makeLoadCarController();
@@ -12,6 +13,6 @@ export default (router: Router): void => {
   const loadPaginatedCarsController = makeLoadPaginatedCarsController();
 
   router.get('/cars', adptExpressRoute(loadCarController));
-  router.post('/cars', adptExpressRoute(saveCarController));
+  router.post('/cars', makeAuthMiddleware, adptExpressRoute(saveCarController));
   router.get('/cars/paginated', adptExpressRoute(loadPaginatedCarsController));
 };

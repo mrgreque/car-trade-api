@@ -5,6 +5,7 @@ type Setup = (carRepo: LoadPaginatedCars) => LoadPaginatedCarsUseCase;
 type Input = {
   page: number;
   itemsPerPage: number;
+  order: 'ASC' | 'DESC';
 };
 type Output = {
   total: number;

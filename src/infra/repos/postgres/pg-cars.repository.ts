@@ -65,7 +65,7 @@ export class PgCarsRepository
     const pgCarRepo = this.getRepository(PgCar);
     const [cars, total] = await pgCarRepo.findAndCount({
       order: {
-        price: 'ASC',
+        price: params.order,
       },
       skip: (params.page - 1) * params.itemsPerPage,
       take: params.itemsPerPage,

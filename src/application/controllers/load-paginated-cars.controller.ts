@@ -7,6 +7,7 @@ import { LoadPaginatedCarsUseCase } from '@/domain/usecases/load-paginated-cars.
 type HttpRequest = {
   page: number;
   itemsPerPage: number;
+  order: 'ASC' | 'DESC';
 };
 
 type Model =
@@ -24,11 +25,13 @@ export class LoadPaginatedCarsController extends Controller {
   async perform({
     page,
     itemsPerPage,
+    order,
   }: HttpRequest): Promise<HttpResponse<Model>> {
     try {
       const paginatedCars = await this.loadPaginatedCars({
         page,
         itemsPerPage,
+        order,
       });
       return ok(paginatedCars);
     } catch (error) {

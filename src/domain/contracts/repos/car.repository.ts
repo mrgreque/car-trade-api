@@ -89,6 +89,7 @@ export namespace LoadPaginatedCars {
   export type Params = {
     page: number;
     itemsPerPage: number;
+    order: 'ASC' | 'DESC';
   };
 
   export type Result = {

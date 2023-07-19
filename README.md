@@ -10,9 +10,11 @@ Este projeto consiste em uma API REST para utilização em site de negociação 
 
 ```
 npm run up:system
+```
 
 ou
 
+```
 yarn up:system
 ```
 

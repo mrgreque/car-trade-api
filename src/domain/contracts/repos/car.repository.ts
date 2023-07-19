@@ -21,7 +21,7 @@ export namespace CarData {
     images?: string;
     motorPower: string;
     ports: number;
-    description: string;
+    description?: string;
     active: boolean;
   };
 
@@ -45,7 +45,7 @@ export namespace CarData {
     images?: string;
     motorPower: string;
     ports: number;
-    description: string;
+    description?: string;
   };
 }
 

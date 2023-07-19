@@ -11,6 +11,8 @@ services:
       POSTGRES_DB: postgres
     ports:
       - 5432:5432
+    volumes:
+      - ./docker_postgres_seed.sql:/docker-entrypoint-initdb.d/docker_postgres_seed.sql
     networks:
       - car-trade-network
 
@@ -24,26 +26,26 @@ services:
     networks:
       - car-trade-network
 
-  # car-trade:
-  #   image: car-trade
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - TS_NODE_DEV=development
-  #     - DB_CONNECTION=postgres
-  #     - DB_HOST=db-car-trade
-  #     - DB_PORT=5432
-  #     - DB_USERNAME=postgres
-  #     - DB_PASSWORD=postgres
-  #     - DB_DATABASE=postgres
-  #   depends_on:
-  #     - db-car-trade
-  #   networks:
-  #     - car-trade-network
+  car-trade:
+    image: car-trade
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - TS_NODE_DEV=development
+      - DB_CONNECTION=postgres
+      - DB_HOST=db-car-trade
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=postgres
+    depends_on:
+      - db-car-trade
+    networks:
+      - car-trade-network
 
 networks:
   car-trade-network:

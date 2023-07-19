@@ -23,7 +23,7 @@ type HttpRequest = {
   images?: string;
   motorPower: string;
   ports: number;
-  description: string;
+  description?: string;
 };
 
 type Model = Error | boolean;

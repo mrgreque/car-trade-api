@@ -19,7 +19,7 @@ type CarData = {
   images?: string;
   motorPower: string;
   ports: number;
-  description: string;
+  description?: string;
   active: boolean;
 };
 

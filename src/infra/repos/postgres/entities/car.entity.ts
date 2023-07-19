@@ -62,8 +62,8 @@ export class PgCar {
   @Column()
   ports!: number;
 
-  @Column()
-  description!: string;
+  @Column({ name: 'description', nullable: true })
+  description?: string;
 
   @Column()
   active!: boolean;

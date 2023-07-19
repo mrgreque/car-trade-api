@@ -96,3 +96,15 @@ export namespace LoadPaginatedCars {
     cars: CarData.Car[];
   };
 }
+
+export interface RemoveCar {
+  remove: (params: RemoveCar.Params) => Promise<RemoveCar.Result>;
+}
+
+export namespace RemoveCar {
+  export type Params = {
+    id: number;
+  };
+
+  export type Result = void;
+}

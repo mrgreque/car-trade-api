@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
   makeLoadCarController,
   makeLoadPaginatedCarsController,
+  makeRemoveCarController,
   makeSaveCarController,
   makeUpdateCarController,
 } from '../factories/application/controllers';
@@ -13,6 +14,7 @@ export default (router: Router): void => {
   const saveCarController = makeSaveCarController();
   const loadPaginatedCarsController = makeLoadPaginatedCarsController();
   const updateCarController = makeUpdateCarController();
+  const removeCarController = makeRemoveCarController();
 
   router.get('/car/:id', adptExpressRoute(loadCarController));
   router.post('/car', makeAuthMiddleware, adptExpressRoute(saveCarController));
@@ -21,5 +23,10 @@ export default (router: Router): void => {
     '/car/:id',
     makeAuthMiddleware,
     adptExpressRoute(updateCarController),
+  );
+  router.delete(
+    '/car/:id',
+    makeAuthMiddleware,
+    adptExpressRoute(removeCarController),
   );
 };

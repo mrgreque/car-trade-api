@@ -5,3 +5,4 @@ export * from './load-paginated-cars.controller';
 export * from './save-user.controller';
 export * from './authenticate-user.controller';
 export * from './update-car.controller';
+export * from './remove-car.controller';

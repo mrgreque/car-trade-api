@@ -1,6 +1,7 @@
 import {
   LoadCar,
   LoadPaginatedCars,
+  RemoveCar,
   SaveCar,
   UpdateCar,
 } from '@/domain/contracts/repos';
@@ -16,7 +17,7 @@ type UpdateCarParams = UpdateCar.Params;
 
 export class PgCarsRepository
   extends PgRepository
-  implements LoadCar, SaveCar, LoadPaginatedCars, UpdateCar
+  implements LoadCar, SaveCar, LoadPaginatedCars, UpdateCar, RemoveCar
 {
   async load(params: LoadParams): Promise<LoadResult> {
     const pgCarRepo = this.getRepository(PgCar);
@@ -68,6 +69,9 @@ export class PgCarsRepository
       },
       skip: (params.page - 1) * params.itemsPerPage,
       take: params.itemsPerPage,
+      where: {
+        active: true,
+      },
     });
 
     return {
@@ -79,5 +83,10 @@ export class PgCarsRepository
   async update(params: UpdateCarParams): Promise<void> {
     const pgCarRepo = this.getRepository(PgCar);
     await pgCarRepo.update({ id: params.id }, params);
+  }
+
+  async remove(params: RemoveCar.Params): Promise<void> {
+    const pgCarRepo = this.getRepository(PgCar);
+    await pgCarRepo.update({ id: params.id }, { active: false });
   }
 }

@@ -68,7 +68,7 @@ export interface UpdateCar {
 export namespace UpdateCar {
   export type Params = CarData.Car;
 
-  export type Result = boolean;
+  export type Result = void;
 }
 
 export interface SaveCar {

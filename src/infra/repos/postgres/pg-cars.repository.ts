@@ -1,4 +1,9 @@
-import { LoadCar, LoadPaginatedCars, SaveCar } from '@/domain/contracts/repos';
+import {
+  LoadCar,
+  LoadPaginatedCars,
+  SaveCar,
+  UpdateCar,
+} from '@/domain/contracts/repos';
 import { PgRepository } from './repository';
 import { PgCar } from './entities';
 
@@ -7,10 +12,11 @@ type LoadResult = LoadCar.Result;
 type SaveParams = SaveCar.Params;
 type LoadPaginatedParams = LoadPaginatedCars.Params;
 type LoadPaginatedResult = LoadPaginatedCars.Result;
+type UpdateCarParams = UpdateCar.Params;
 
 export class PgCarsRepository
   extends PgRepository
-  implements LoadCar, SaveCar, LoadPaginatedCars
+  implements LoadCar, SaveCar, LoadPaginatedCars, UpdateCar
 {
   async load(params: LoadParams): Promise<LoadResult> {
     const pgCarRepo = this.getRepository(PgCar);
@@ -68,5 +74,10 @@ export class PgCarsRepository
       total,
       cars,
     };
+  }
+
+  async update(params: UpdateCarParams): Promise<void> {
+    const pgCarRepo = this.getRepository(PgCar);
+    await pgCarRepo.update({ id: params.id }, params);
   }
 }

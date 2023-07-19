@@ -5,12 +5,12 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig-build.json",
-    "start": "node -r tsconfig-paths/register -r dotenv/config dist/main",
     "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register -r dotenv/config src/main",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "yarn test -- --watchAll",
     "test:coverage": "yarn test -- --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "up:system": "docker-compose up"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
